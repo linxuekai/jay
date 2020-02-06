@@ -3,7 +3,7 @@
     <div class="zj-wrap"
          v-for="zj in jayAll"
          :key="zj.url">
-         <a :href="zj.zj">
+         <router-link tag="div" :to="zj.zj">
                     <div class="zj">
             <img :src="zj.folderImg"
                 alt=""
@@ -13,7 +13,7 @@
               <div class="year">{{zj.year}}</div>
               </div>
          </div>
-         </a>
+         </router-link>
     </div>
   </div>
 </template>

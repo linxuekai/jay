@@ -20,5 +20,6 @@
   bottom 0
   left 0
   background  linear-gradient(120deg, pink, skyblue)
+  z-index -1
 
 </style>
