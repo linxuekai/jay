@@ -1,6 +1,11 @@
 <template>
   <div>
-    <img v-if="isHidden" src="../assets/music.png" class="open-icon" @click="isHidden = false">
+    <img
+      v-show="isHidden"
+      src="../assets/music.png"
+      class="open-icon"
+      @click="isHidden = false"
+    >
     <div
       class="playlist-selector"
       :class="{hidden: isHidden}"
@@ -10,15 +15,18 @@
         class="close-icon"
         @click="isHidden = true"
       >
-      <div class="folder-wrap">
-        <Folder
-          @click.native="$router.replace(`/${zj.zj}`)"
-          v-for="zj in jayAll"
-          :key="zj.zj"
-          :zj="zj"
-          :class="{active: zj.zj === $route.params.zjName}"
-        />
+      <div class="folder-row">
+        <div class="folder-wrap">
+          <Folder
+            @click.native="$router.replace(`/${zj.zj}`)"
+            v-for="zj in jayAll"
+            :key="zj.zj"
+            :zj="zj"
+            :class="{active: zj.zj === $route.params.zjName}"
+          />
+        </div>
       </div>
+
     </div>
   </div>
 </template>
@@ -48,13 +56,16 @@ export default class PlayListSelector extends Vue {
   right 0
   left 0
   background-color rgba(0, 0, 0, .7)
-  overflow auto
-  white-space nowrap
-  padding 60px 0 40px
+  // padding 60px 0 40px
   transition .3s
 
 .playlist-selector.hidden
-  transform translateY(100%)
+  transform translate(100%, 100%)
+
+.folder-wrap
+  white-space nowrap
+  overflow auto
+  padding 70px 10px 50px
 
 .zj
   border-radius 50%
@@ -82,12 +93,11 @@ export default class PlayListSelector extends Vue {
     transform rotate(360deg)
 
 .close-icon
-  position fixed
+  position absolute
   width 28px
   height 28px
-  bottom 200px
-  right 5px
-  z-index 2
+  right 8px
+  top 8px
 
 .open-icon {
   position fixed

@@ -1,16 +1,19 @@
 <template>
   <div class="player-wrap">
     <h3 class="title">{{zjName}}</h3>
-    <Aplayer
-      class="player"
-      :showLrc="true"
-      repeat="repeat-all"
-      :music="aplayerList[0]"
-      :autoplay="true"
-      :list="aplayerList"
-      listMaxHeight="75vh"
-      theme="pic"
-    />
+
+    <div>
+      <Aplayer
+        class="player"
+        :showLrc="true"
+        repeat="repeat-all"
+        :music="aplayerList[0]"
+        :autoplay="true"
+        :list="aplayerList"
+        listMaxHeight="75vh"
+        theme="pic"
+      />
+    </div>
 
     <div>
       <PlayListSelector />
@@ -19,10 +22,11 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from 'vue-property-decorator'
+import { Vue, Component } from 'vue-property-decorator'
 import { State } from 'vuex-class'
-import Aplayer from 'vue-aplayer'
+
 import PlayListSelector from '../components/PlayListSelector.vue'
+const Aplayer = () => import('vue-aplayer')
 
 @Component({
   components: {
