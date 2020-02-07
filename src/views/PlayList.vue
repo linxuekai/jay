@@ -1,5 +1,6 @@
 <template>
   <div class="player-wrap">
+    <h3 class="title">{{zjName}}</h3>
     <Aplayer
       class="player"
       :showLrc="true"
@@ -7,8 +8,13 @@
       :music="aplayerList[0]"
       :autoplay="true"
       :list="aplayerList"
-      listMaxHeight="70vh"
+      listMaxHeight="75vh"
+      theme="pic"
     />
+
+    <div>
+      <PlayListSelector />
+    </div>
   </div>
 </template>
 
@@ -16,10 +22,12 @@
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import { State } from 'vuex-class'
 import Aplayer from 'vue-aplayer'
+import PlayListSelector from '../components/PlayListSelector.vue'
 
 @Component({
   components: {
-    Aplayer
+    Aplayer,
+    PlayListSelector
   }
 })
 export default class VueComp extends Vue {
@@ -46,10 +54,13 @@ export default class VueComp extends Vue {
 </script>
 
 <style lang="stylus" scoped>
-.player-wrap
+.title
+  margin 20px
+  font-size 18px
+  font-weight bold
 
 .player
-  margin 18vh auto 10vh
+  margin 20px auto
   box-shadow 3px 12px 35px rgba(130, 130, 130, .4)
   max-width 500px
 
