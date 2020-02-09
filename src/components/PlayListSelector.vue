@@ -56,11 +56,11 @@ export default class PlayListSelector extends Vue {
   right 0
   left 0
   background-color rgba(0, 0, 0, .7)
-  // padding 60px 0 40px
+  border-radius 15px 15px 0 0
   transition .3s
 
 .playlist-selector.hidden
-  transform translate(100%, 100%)
+  transform translateY(100%)
 
 .folder-wrap
   white-space nowrap
