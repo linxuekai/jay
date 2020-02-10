@@ -7,6 +7,7 @@
     >
       <router-link
         tag="div"
+        class="folder-link"
         :to="zj.zj"
       >
         <Folder :zj="zj" />
@@ -34,4 +35,9 @@ export default class Home extends Vue {
 <style lang="stylus" scoped>
 .zj-wrap
   margin 30px 0
+
+.folder-link
+  cursor pointer
+  display inline-block
+  font-size 0
 </style>

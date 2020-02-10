@@ -101,6 +101,7 @@ export default class PlayListSelector extends Vue {
   top 8px
 
 .open-icon {
+  cursor pointer
   position fixed
   right 15px
   bottom 20px
