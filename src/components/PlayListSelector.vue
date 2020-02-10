@@ -68,6 +68,7 @@ export default class PlayListSelector extends Vue {
   padding 70px 10px 50px
 
 .zj
+  cursor pointer
   border-radius 50%
   padding 5px
   box-shadow 0 0 0 4px #555, 2px 4px 15px #000, 0 0 0 6px #fff

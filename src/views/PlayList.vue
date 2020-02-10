@@ -28,6 +28,19 @@ import { State } from 'vuex-class'
 import PlayListSelector from '../components/PlayListSelector.vue'
 const Aplayer = () => import('vue-aplayer')
 
+function _isMobile (): boolean {
+  return /(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i.test(navigator.userAgent)
+}
+
+function _alert (msg: string) {
+  let iframe = document.createElement('IFRAME')
+  iframe.style.display = 'none'
+  iframe.setAttribute('src', 'data:text/plain,')
+  document.documentElement.appendChild(iframe)
+  window.frames[0].window.alert(msg)
+  iframe.parentNode!.removeChild(iframe)
+}
+
 @Component({
   components: {
     Aplayer,
@@ -53,6 +66,13 @@ export default class VueComp extends Vue {
       pic: this.playlist.folderImg,
       lrc: song.url.replace('.mp3', '.lrc')
     }))
+  }
+
+  mounted () {
+    if (_isMobile() && !localStorage.getItem('trafficWarn')) {
+      _alert('本网站已经做了很好的缓存策略，但很遗憾此设备并不支持缓存音频；请留意你宝贵的流量，土豪和 WIFI 请无视。')
+      localStorage.setItem('trafficWarn', 'true')
+    }
   }
 }
 </script>
