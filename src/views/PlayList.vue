@@ -70,7 +70,7 @@ export default class VueComp extends Vue {
 
   mounted () {
     if (_isMobile() && !localStorage.getItem('trafficWarn')) {
-      _alert('本网站已经做了很好的缓存策略，但很遗憾此设备并不支持缓存音频；请留意你宝贵的流量，土豪和 WIFI 请无视。')
+      _alert('本网站已经做了很好的缓存策略，但音频体积较大；请留意你宝贵的流量，土豪和 WIFI 请无视。')
       localStorage.setItem('trafficWarn', 'true')
     }
   }
