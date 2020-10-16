@@ -4,10 +4,11 @@
 
     <div>
       <Aplayer
+        ref="player"
         class="player"
         :showLrc="true"
         repeat="repeat-all"
-        :music="aplayerList[0]"
+        :music="curMusic || aplayerList[0]"
         :autoplay="true"
         :list="aplayerList"
         listMaxHeight="75vh"
@@ -22,14 +23,14 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator'
+import { Vue, Component, Ref, Watch } from 'vue-property-decorator'
 import { State } from 'vuex-class'
 
 import PlayListSelector from '../components/PlayListSelector.vue'
 const Aplayer = () => import('vue-aplayer')
 
 function _isMobile (): boolean {
-  return /(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i.test(navigator.userAgent)
+  return /(phone|pad|pod|ios|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i.test(navigator.userAgent)
 }
 
 function _alert (msg: string) {
@@ -48,7 +49,10 @@ function _alert (msg: string) {
   }
 })
 export default class VueComp extends Vue {
+  @Ref() player!: typeof Aplayer;
   @State('jayAll') jayAll!: ZJ[]
+
+  curMusic: AplayerMusic | null = null
 
   get zjName (): string {
     return this.$route.params.zjName
@@ -68,9 +72,17 @@ export default class VueComp extends Vue {
     }))
   }
 
+  @Watch('aplayerList')
+  onPlayerListChange (ls: AplayerMusic[]) {
+    (this.player as any).shuffledList = ls
+  }
+
   mounted () {
     if (_isMobile() && !localStorage.getItem('trafficWarn')) {
-      _alert('本网站已经做了很好的缓存策略，但音频体积较大；请留意你宝贵的流量，土豪和 WIFI 请无视。')
+      _alert(
+        '为了保证音质，本站使用 8~12MB 的音乐文件。' +
+        '由于移动端无法缓存音频，因此在享用过程中，可能会造成你的流量浪费。' +
+        '强烈建议在电脑端享用！土豪和 WIFI 请无视。')
       localStorage.setItem('trafficWarn', 'true')
     }
   }
