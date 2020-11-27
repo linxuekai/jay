@@ -8,7 +8,7 @@
         class="player"
         :showLrc="true"
         repeat="repeat-all"
-        :music="curMusic || aplayerList[0]"
+        :music="aplayerList[shareSN]"
         :autoplay="true"
         :list="aplayerList"
         listMaxHeight="75vh"
@@ -42,6 +42,14 @@ function _alert (msg: string) {
   iframe.parentNode!.removeChild(iframe)
 }
 
+/**
+ * 分享曲目序号
+ * -------------------- */
+function getShareSN () {
+  const shareSNMatch = location.search.match(/shareSN=(.+?)(?=&|$)/)
+  return shareSNMatch ? Number(shareSNMatch[1]) - 1 : 0
+}
+
 @Component({
   components: {
     Aplayer,
@@ -52,7 +60,7 @@ export default class VueComp extends Vue {
   @Ref() player!: typeof Aplayer;
   @State('jayAll') jayAll!: ZJ[]
 
-  curMusic: AplayerMusic | null = null
+  shareSN = getShareSN()
 
   get zjName (): string {
     return this.$route.params.zjName
@@ -90,17 +98,20 @@ export default class VueComp extends Vue {
 </script>
 
 <style lang="stylus" scoped>
-.title
-  margin 20px
-  font-size 18px
-  font-weight bold
+.title {
+  margin: 20px;
+  font-size: 18px;
+  font-weight: bold;
+}
 
-.player
-  margin 20px auto
-  box-shadow 3px 12px 35px rgba(130, 130, 130, .4)
-  max-width 500px
+.player {
+  margin: 20px auto;
+  box-shadow: 3px 12px 35px rgba(130, 130, 130, 0.4);
+  max-width: 500px;
+}
 
-/deep/ .aplayer-list ol li .aplayer-list-index
-  min-width 14px
-  text-align center
+/deep/ .aplayer-list ol li .aplayer-list-index {
+  min-width: 14px;
+  text-align: center;
+}
 </style>
